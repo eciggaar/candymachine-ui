@@ -13,22 +13,16 @@
         <h1 class="h1 caps mb0 regular">
           <img src="static/images/watson-logo.svg" />
           <br />
-          Say something nice!
+          Type something nice
         </h1>
-        <h3>After finishing recording, we will analyse your voice and get the overall sentiment</h3>
+        <h3>Click 'Analyze' to get the overall sentiment of your input text</h3>
+        <br />
         <p>
-          <button id="record" class="rounded h1 btn btn-primary mt3 mb4 p4" disabled>Record</button>
-          <button id="stop" class="rounded h1 btn btn-primary bg-red mt3 mb4 p4" disabled>&nbsp;Stop&nbsp;</button>
+          <input class="input regular" size="50" id="transcript" type="text"><br /><br />
+          <button id="analyze" class="rounded h1 btn btn-primary mt3 mb4 p4">Analyze</button>
         </p>
         <br />
         <div id="results"></div>
-        <br />
-        <div>
-          <audio id="playaudio" autoplay>
-            <source src="" type="audio/ogg">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
       </div>
     </section>
 

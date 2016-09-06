@@ -1,0 +1,6 @@
+launchConfigurations/
+.DS_Store
+.env
+static/resources/text.ogg
+static/resources/negative.ogg
+static/resources/positive.ogg
