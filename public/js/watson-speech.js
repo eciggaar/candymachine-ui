@@ -25,13 +25,13 @@ exports.version = "v0.10.1";
  *
  * @see module:watson-speech/speech-to-text
  */
-exports.SpeechToText = require('./speech-to-text');
+exports.SpeechToText = require('watson-developer-cloud/speech-to-text/v1');
 
 /**
  *
  * @see module:watson-speech/text-to-speech
  */
-exports.TextToSpeech = require('./text-to-speech');
+exports.TextToSpeech = require('watson-developer-cloud/text-to-speech/v1');
 
 
 
