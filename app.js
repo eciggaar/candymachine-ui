@@ -27,11 +27,12 @@ var config = extend({
   password: process.env.STT_PASSWORD || '<password>'
 }, vcapServices.getCredentials('speech_to_text'));
 
-var alchemy = extend({apikey: process.env.ALCHEMY_API_KEY || '<alchemy_apikey>'}, vcapServices.getCredentials('alchemy_api'));
-
-console.log(JSON.stringify(alchemy));
-
+var alchemy_cred = extend({apikey: process.env.ALCHEMY_API_KEY || '<alchemy_apikey>'}, vcapServices.getCredentials('alchemy_api'));
 var authService = watson.authorization(config);
+
+var alchemy_language = new AlchemyLanguageV1({
+  api_key: alchemy_cred.apikey
+});
 
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
@@ -47,7 +48,10 @@ app.get('/token', function(req, res) {
 });
 
 app.post('/sentiment', function(req,res){
-  console.log('inside sentiment POST');
+  var text = req.form.transript;
+  var result = alchemy_language.sentiment({'text': text});
+
+  console.log('Result from alchemy: ' + result);
 });
 
 /* @app.route("/sentiment", methods=["POST"])
