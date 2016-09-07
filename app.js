@@ -27,7 +27,7 @@ var config = extend({
   password: process.env.STT_PASSWORD || '<password>'
 }, vcapServices.getCredentials('speech_to_text'));
 
-var alchemy = extend({apikey: process.env.ALCHEMY_API_KEY || '<alchemy_apikey>'}, vcapServices.getCredentials('alchemy_api');
+var alchemy = extend({apikey: process.env.ALCHEMY_API_KEY || '<alchemy_apikey>'}, vcapServices.getCredentials('alchemy_api'));
 
 console.log(JSON.stringify(alchemy));
 
