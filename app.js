@@ -47,10 +47,10 @@ app.get('/token', function(req, res) {
 });
 
 app.post('/sentiment', function(req,res){
-
+  console.log('inside sentiment POST');
 });
 
-@app.route("/sentiment", methods=["POST"])
+/* @app.route("/sentiment", methods=["POST"])
 def getSentiment():
     global has_arduino
     text = request.form["transcript"]
@@ -89,7 +89,7 @@ def getSentiment():
     else:
         logger.error('Error in sentiment analysis call: ', result['statusInfo'])
 
-    return json.dumps({"sentiment": sentiment, "score": score})
+    return json.dumps({"sentiment": sentiment, "score": score}) */
 
 
 
