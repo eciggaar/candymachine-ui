@@ -59,6 +59,9 @@ var params = {
   voice: 'en-US_MichaelVoice'
 };
 
+console.log('tts username:' + textToSpeech.username);
+console.log('tts password:' + textToSpeech.password);
+
 // Pipe the synthesized positive text to a file.
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/positive.ogg'));
 
