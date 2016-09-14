@@ -75,13 +75,13 @@ function sentimentAnalysis(transcript) {
 
     if(sentiment === 'positive') {
       reset('rgba(164,198,57,0.50)', true)
-      $playaudio.src = "static/resources/positive.ogg?ts=" + new Date().getTime()
+      $playaudio.src = "resources/positive.ogg?ts=" + new Date().getTime()
     } else if(sentiment === 'negative') {
       reset('rgba(255,76,76,0.50)', true)
-      $playaudio.src = "static/resources/negative.ogg?ts=" + new Date().getTime()
+      $playaudio.src = "resources/negative.ogg?ts=" + new Date().getTime()
     } else {
       reset('', true)
-      $playaudio.src = "static/resources/text.ogg?ts=" + new Date().getTime()
+      $playaudio.src = "resources/text.ogg?ts=" + new Date().getTime()
     }
 
     timeout = setTimeout(reset, 3000)
