@@ -47,6 +47,8 @@ var eventname = process.env.EVENTNAME;
 
 tts_credentials = vcapServices.getCredentials('text_to_speech');
 
+console.log('TTS Credentials: ' + tts_credentials);
+
 // For local development, replace username and password
 var textToSpeech = watson.text_to_speech({
     version: 'v1',
