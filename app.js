@@ -48,21 +48,28 @@ var eventname = process.env.EVENTNAME;
 tts_credentials = vcapServices.getCredentials('text_to_speech');
 
 console.log('TTS Credentials: ' + JSON.stringify(tts_credentials));
+console.log('username: ' + tts_credentials.username || process.env.TTS_USERNAME);
+console.log('password: ' + tts_credentials.password || process.env.TTS_PASSWORD);
+
+var tts_config = extend({
+  version: 'v1',
+  username: process.env.STT_USERNAME,
+  password: process.env.STT_PASSWORD
+}, vcapServices.getCredentials('text_to_speech'));
+
+console.log('tts_config: ' + JSON.stringify(tts_config));
 
 // For local development, replace username and password
 var textToSpeech = watson.text_to_speech({
     version: 'v1',
     username: tts_credentials.username || process.env.TTS_USERNAME,
-    password: tts_credentials.username || process.env.TTS_PASSWORD
+    password: tts_credentials.password || process.env.TTS_PASSWORD
 });
 
 var params = {
   text: process.env.POS_TEXT,
   voice: 'en-US_MichaelVoice'
 };
-
-console.log('tts username:' + textToSpeech.username);
-console.log('tts password:' + textToSpeech.password);
 
 // Pipe the synthesized positive text to a file.
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/positive.ogg'));
