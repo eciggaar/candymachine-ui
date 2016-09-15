@@ -151,7 +151,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                 console.log('Error in sentiment analysis call: ' + result.statusInfo);
             }
 
-            console.log('Result: ' + response.status + ', Score: ' + score);
+            console.log('Result: ' + response.status + ', ' + text + '. Score: ' + score);
             res.send({
                 'sentiment': sentiment,
                 'score': score
