@@ -72,6 +72,7 @@ textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/nega
 params.text = process.env.GEN_TEXT;
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/text.ogg'));
 
+var NODE_RED_HOST = 'https://amsiic-cf-nodered.eu-gb.mybluemix.net';
 
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
@@ -129,7 +130,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                         }
                     };
 
-                    client.post(process.env.NODE_RED_HOST + '/candy', args, function(data, response) {});
+                    client.post(NODE_RED_HOST + '/candy', args, function(data, response) {});
                 }
 
                 // set content-type header and data as json in args parameter
@@ -146,7 +147,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                     }
                 };
 
-                client.post(process.env.NODE_RED_HOST + '/candylog', args, function(data, response) {});
+                client.post(NODE_RED_HOST + '/candylog', args, function(data, response) {});
             } else {
                 console.log('Error in sentiment analysis call: ' + result.statusInfo);
             }
