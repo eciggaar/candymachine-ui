@@ -129,7 +129,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                         }
                     };
 
-                    client.post('http://amsiic-cf-nodered.eu-gb.mybluemix.net/candy', args, function(data, response) {});
+                    client.post(process.env.NODE_RED_HOST + '/candy', args, function(data, response) {});
                 }
 
                 // set content-type header and data as json in args parameter
@@ -146,7 +146,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                     }
                 };
 
-                client.post('http://amsiic-cf-nodered.eu-gb.mybluemix.net/candylog', args, function(data, response) {});
+                client.post(process.env.NODE_RED_HOST + '/candylog', args, function(data, response) {});
             } else {
                 console.log('Error in sentiment analysis call: ' + result.statusInfo);
             }

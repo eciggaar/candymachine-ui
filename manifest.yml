@@ -11,4 +11,4 @@ applications:
     NEG_TEXT: That negative message hurts. You'll have to take the sour candy.
     GEN_TEXT: I'm sorry. To get some candies, you need to be more explicit.
     EVENTNAME: dummy
-  
+    NODE_RED_HOST: <your_nodered_environment>
