@@ -7,6 +7,9 @@ if (!process.env.VCAP_SERVICES) {
   require('dotenv').config();  // Running locally so configuring dotenv to read .env file
 }
 
+// Constant used to point to your NodeRED environment
+var NODE_RED_HOST = 'https://amsiic-cf-nodered.eu-gb.mybluemix.net';
+
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
 var express = require('express');
@@ -71,8 +74,6 @@ textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/nega
 // Pipe the synthesized neutral text to a file.
 params.text = process.env.GEN_TEXT;
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/text.ogg'));
-
-var NODE_RED_HOST = 'https://amsiic-cf-nodered.eu-gb.mybluemix.net';
 
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
