@@ -1,0 +1,24 @@
+{
+  "_id": "_design/myDesignDoc",
+  "views": {
+    "events_view": {
+      "map": "function (doc) {\n  emit(doc.event, doc.event);\n}",
+      "reduce": "_count"
+    },
+    "negativescore_stats": {
+      "reduce": "_stats",
+      "map": "function (doc) {\n  if (doc.score < 0) {\n    emit(doc.event, doc.score);  \n  }\n}"
+    },
+    "positivescore_stats": {
+      "reduce": "_stats",
+      "map": "function (doc) {\n  if (doc.score > 0) {\n    emit(doc.event, doc.score);  \n  }\n}"
+    }
+  },
+  "language": "javascript",
+  "indexes": {
+    "searchScore": {
+      "analyzer": "standard",
+      "index": "function (doc) {\n  index(\"score\", doc.score, {\"store\": true});\n}"
+    }
+  }
+}
