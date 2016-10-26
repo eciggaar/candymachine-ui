@@ -29,3 +29,28 @@ Next, select the menu at the top right and select 'Import' -> 'Clipboard' to pas
 You should now see a flow similar to the flow as depicted in the image above. In that flow select the MQTT input node and point it to the topic that you defined for your flow. This name should match the topic name of the MQTT output node in your candy machine flow on IBM Bluemix.
 
 ![](readme_images/define_topicname.png)
+
+### Adding reporting views to Cloudant
+
+To be able to gather statistics on the dashboarding page, some views need to be defined in the Cloudant database that is created for you when your Node-RED environment is deployed. The view definitions can be found in `resources/cloudant_designdoc.json`. The following commands assume you have `curl` installed and set up on your environment. We will invoke two Cloudant API calls. One to create the candylogs database and one to create the so-called design document. The URL for Cloudant can be found in the VCAP_SERVICES environment variable.
+
+![](readme_images/get_cloudanturl.png)
+
+To create the database, open a terminal and enter the following command:
+```
+curl -X PUT <cloudant_credentials_url>/candylogs
+```
+If the database already has been created during for you during deployment you'll get a response similar to
+
+otherwise the response would be
+```
+{"ok":true}
+```
+and the database is created for you. You can now invoke the second API call to create the design document. Please ensure you have a local copy of the `cloudant_designdoc.json` file.
+```
+curl -X PUT <cloudant_credentials_url>/candylogs/_design/myDesignDoc --data-binary @<path_to_cloudant_designdoc.json>
+```
+This should return an output similar to
+```
+{"ok":true,"id":"_design/myDesignDoc","rev":"1-27af6e5ea017c0c99c939322a14a1def"}
+```

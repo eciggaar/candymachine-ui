@@ -8,7 +8,7 @@ if (!process.env.VCAP_SERVICES) {
 }
 
 // Constant used to point to your NodeRED environment
-var NODE_RED_HOST = 'https://candymachine-nodered-eciggaar-1455.mybluemix.net';
+var NODE_RED_HOST = 'http://candymachine-nodered-eciggaar-1617.mybluemix.net/';
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
