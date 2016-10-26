@@ -1,7 +1,7 @@
 # Watson Polite Candy Machine
 
 Use the button below to deploy the Watson Polite Candy Machine to your own Bluemix organization.
-In the `app.js` file there is a variable `NODE_RED_HOST` defined at `line 11`. Change the value of this variable to match your own Node-RED environment.
+In the `app.js` file there is a variable `NODE_RED_HOST` defined at `line 11`. Change the value of this variable to match it to your own Node-RED environment.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/eciggaar/eci-candymachine)
 
