@@ -8,7 +8,7 @@ In the `app.js` file there is a variable `NODE_RED_HOST` defined at `line 11`. C
 ## Candy machine Node-RED flows
 ### The flow on Bluemix
 
-If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. The only you need to change is to choose a unique value for the MQTT topic.
+If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. The only thing you need to change is to choose a unique value for the MQTT topic.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/eciggaar/candymachine-nodered)
 
