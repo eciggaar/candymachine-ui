@@ -8,9 +8,11 @@ In the `app.js` file there is a variable `NODE_RED_HOST` defined at `line 11`. C
 ## Candy machine Node-RED flows
 ### The flow on Bluemix
 
-If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow.
+If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. The only you need to change is to choose a unique value for the MQTT topic.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/eciggaar/candymachine-nodered)
+
+![](readme_images/define_topicname_bluemix.png)
 
 This flow can be used to test the setup by triggering both a positive and negative message. Furthermore, the requests are being published via MQTT to the local flow -- used to control the candy disposers. Finally, the requests are being logged to a Cloudant database for dashboarding purposes.
 
@@ -41,7 +43,9 @@ To create the database, open a terminal and enter the following command:
 curl -X PUT <cloudant_credentials_url>/candylogs
 ```
 If the database already has been created during for you during deployment you'll get a response similar to
-
+```
+{"error":"file_exists","reason":"The database could not be created, the file already exists."}
+```
 otherwise the response would be
 ```
 {"ok":true}
