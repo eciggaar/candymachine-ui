@@ -13,11 +13,43 @@ If you do not have a Node-RED environment in Bluemix, use the button below to de
 
 ![](readme_images/define_topicname_bluemix.png)
 
-This flow can be used to test the setup by triggering both a positive and negative message. Furthermore, the requests are being published via MQTT to the local flow -- used to control the candy disposers. Finally, the requests are being logged to a Cloudant database for dashboarding purposes.
+This flow can be used to test the setup by triggering both a positive and negative message. Furthermore, the requests are being published via MQTT to the local flow -- used to control the candy disposers. Finally, the requests are being logged to a Cloudant database for reporting purposes.
 
-To complete the Bluemix part of the Candy Machine's set up, set the value of the user-defined variable `NODE_RED_HOST` in the `candymachine-ui` app to your deployed Node-RED environment.
+To complete the Bluemix part of the Watson Candy Machine's set up, open the `manifest.yml` and put the values of `POS_TEXT`, `GEN_TEXT` and `NEG_TEXT` between double quotes. Then, set the value of the user-defined variable `NODE_RED_HOST` to your deployed Node-RED environment. The `manifest.yml` should look similar to
 
-![](readme_images/change_node-red_host.png)
+```
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: eu-gb.mybluemix.net
+  name: candymachine-ui
+  host: candymachine-ui
+  disk_quota: 1024M
+  services:
+  - AlchemyAPI
+  - CandyMachineSTT
+  - CandyMachineTTS
+  env:
+    POS_TEXT: "Wow, that's positive. Thank you! Enjoy your chocolate candy."
+    NEG_TEXT: "That negative message hurts. You'll have to take the sour candy."
+    GEN_TEXT: "I'm sorry. To get some candies, you need to be more explicit."
+    EVENTNAME: dummy
+    NODE_RED_HOST: http://<your-node-red-host>
+
+declared-services:
+  AlchemyAPI:
+    label: alchemy_api
+    plan: free
+  CandyMachineSTT:
+    label: speech_to_text
+    plan: standard
+  CandyMachineTTS:
+    label: text_to_speech
+    plan: standard
+```
+
+Finally, commit your changes and push the code to your repository. This will automatically trigger the 'BUILD & DEPLOY' pipeline to build and deploy your application to Bluemix.
 
 ### The local flow
 
