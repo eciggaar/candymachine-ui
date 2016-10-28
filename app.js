@@ -7,9 +7,6 @@ if (!process.env.VCAP_SERVICES) {
   require('dotenv').config();  // Running locally so configuring dotenv to read .env file
 }
 
-// Constant used to point to your NodeRED environment
-var NODE_RED_HOST = 'http://candymachine-nodered-eciggaar-1617.mybluemix.net';
-
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
 var express = require('express');
@@ -51,8 +48,8 @@ var eventname = process.env.EVENTNAME;
 
 var tts_config = extend({
   version: 'v1',
-  username: process.env.STT_USERNAME,
-  password: process.env.STT_PASSWORD
+  username: process.env.TTS_USERNAME,
+  password: process.env.TTS_PASSWORD
 }, vcapServices.getCredentials('text_to_speech'));
 
 
@@ -131,7 +128,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                         }
                     };
 
-                    client.post(NODE_RED_HOST + '/candy', args, function(data, response) {});
+                    client.post(process.env.NODE_RED_HOST + '/candy', args, function(data, response) {});
                 }
 
                 // set content-type header and data as json in args parameter
@@ -148,7 +145,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
                     }
                 };
 
-                client.post(NODE_RED_HOST + '/candylog', args, function(data, response) {});
+                client.post(process.env.NODE_RED_HOST + '/candylog', args, function(data, response) {});
             } else {
                 console.log('Error in sentiment analysis call: ' + result.statusInfo);
             }
