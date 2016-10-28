@@ -49,7 +49,7 @@ declared-services:
     plan: standard
 ```
 
-Finally, commit your changes and push the code to your repository. This will automatically trigger the 'BUILD & DEPLOY' pipeline to build and deploy your application to Bluemix.
+Finally, commit your changes and push the code to your repository. This will automatically trigger the 'BUILD & DEPLOY' pipeline to push the updated version of your application to Bluemix.
 
 ### The local flow
 
