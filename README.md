@@ -1,13 +1,14 @@
 # Watson Polite Candy Machine
+This project contains the web tier for the Watson Polite Candymachine. It is written in NodeJS. The transcribed voice is posted to a Node-RED flow that controls the disposal of candies. The same Node-RED flow also serves a basic dashboard that can be used to give insight in the sentiment of the audience that interacted with the candy machine.
 
-Use the button below to deploy the Watson Polite Candy Machine to your own Bluemix organization.
+Use the button below to start the deployment of the Watson Polite Candy Machine to your own Bluemix organization.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/eciggaar/candymachine-ui)
 
 ## Candy machine Node-RED flows
 ### The flow on Bluemix
 
-If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. The only thing you need to change is to choose a unique value for the MQTT topic.
+If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. Once completed, choose a unique value for the MQTT topic and click on 'DEPLOY' to deploy the modified flow.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/eciggaar/candymachine-nodered)
 
