@@ -1,20 +1,23 @@
 # Watson Polite Candy Machine
 
 Use the button below to deploy the Watson Polite Candy Machine to your own Bluemix organization.
-In the `app.js` file there is a variable `NODE_RED_HOST` defined at `line 11`. Change the value of this variable to match it to your own Node-RED environment.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/eciggaar/eci-candymachine)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/eciggaar/candymachine-ui)
 
 ## Candy machine Node-RED flows
 ### The flow on Bluemix
 
 If you do not have a Node-RED environment in Bluemix, use the button below to deploy one to your organization. This environment will be preloaded with the candy machine flow. The only thing you need to change is to choose a unique value for the MQTT topic.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://hub.jazz.net/git/eciggaar/candymachine-nodered)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/eciggaar/candymachine-nodered)
 
 ![](readme_images/define_topicname_bluemix.png)
 
 This flow can be used to test the setup by triggering both a positive and negative message. Furthermore, the requests are being published via MQTT to the local flow -- used to control the candy disposers. Finally, the requests are being logged to a Cloudant database for dashboarding purposes.
+
+To complete the Bluemix part of the Candy Machine's set up, set the value of the user-defined variable `NODE_RED_HOST` in the `candymachine-ui` app to your deployed Node-RED environment.
+
+![](readme_images/change_node-red_host.png)
 
 ### The local flow
 
