@@ -16,7 +16,6 @@ applications:
     GEN_TEXT: "I'm sorry. To get some candies, you need to be more explicit."
     EVENTNAME: dummy
     NODE_RED_HOST: http://<your-node-red-host>
-
 declared-services:
   AlchemyAPI:
     label: alchemy_api
