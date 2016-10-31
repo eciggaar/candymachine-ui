@@ -1,14 +1,14 @@
 ---
 declared-services:
-  AlchemyAPI:
-    label: alchemy_api
-    plan: free
   CandyMachineSTT:
     label: speech_to_text
     plan: standard
   CandyMachineTTS:
     label: text_to_speech
     plan: standard
+  AlchemyAPI:
+    label: alchemy_api
+    plan: free    
 applications:
 - path: .
   memory: 256M
