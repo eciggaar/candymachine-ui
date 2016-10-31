@@ -1,3 +1,4 @@
+---
 declared-services:
   AlchemyAPI:
     label: alchemy_api
