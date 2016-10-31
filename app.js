@@ -57,7 +57,7 @@ var tts_config = extend({
 var textToSpeech = watson.text_to_speech(tts_config);
 
 var params = {
-  text: process.env.POS_TEXT,
+  text: unescape(process.env.POS_TEXT),
   voice: 'en-US_MichaelVoice'
 };
 
@@ -65,11 +65,11 @@ var params = {
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/positive.ogg'));
 
 // Pipe the synthesized negative text to a file.
-params.text = process.env.NEG_TEXT;
+params.text = unescape(process.env.NEG_TEXT);
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/negative.ogg'));
 
 // Pipe the synthesized neutral text to a file.
-params.text = process.env.GEN_TEXT;
+params.text = unescape(process.env.GEN_TEXT);
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/text.ogg'));
 
 // serve the files out of ./public as our main files
