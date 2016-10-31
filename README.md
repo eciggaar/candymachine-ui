@@ -16,50 +16,18 @@ If you do not have a Node-RED environment in Bluemix, use the button below to de
 
 This flow can be used to test the setup by triggering both a positive and negative message. Furthermore, the requests are being published via MQTT to the local flow -- used to control the candy disposers. Finally, the requests are being logged to a Cloudant database for reporting purposes.
 
-To complete the Bluemix part of the Watson Candy Machine's set up, open the `manifest.yml` and put the values of `POS_TEXT`, `GEN_TEXT` and `NEG_TEXT` between double quotes. Then, set the value of the user-defined variable `NODE_RED_HOST` to your deployed Node-RED environment. The `manifest.yml` should look similar to
+To complete the Bluemix part of the Watson Candy Machine's set up, set the value of the user-defined variable `NODE_RED_HOST` to your deployed Node-RED environment. Click 'Save' to apply the changes. Finally, restart the application so that it reads the new value of `NODE_RED_HOST` in memory.
 
-```
-applications:
-- path: .
-  memory: 256M
-  instances: 1
-  domain: eu-gb.mybluemix.net
-  name: candymachine-ui
-  host: candymachine-ui
-  disk_quota: 1024M
-  services:
-  - AlchemyAPI
-  - CandyMachineSTT
-  - CandyMachineTTS
-  env:
-    POS_TEXT: "Wow, that's positive. Thank you! Enjoy your chocolate candy."
-    NEG_TEXT: "That negative message hurts. You'll have to take the sour candy."
-    GEN_TEXT: "I'm sorry. To get some candies, you need to be more explicit."
-    EVENTNAME: dummy
-    NODE_RED_HOST: http://<your-node-red-host>
-
-declared-services:
-  AlchemyAPI:
-    label: alchemy_api
-    plan: free
-  CandyMachineSTT:
-    label: speech_to_text
-    plan: standard
-  CandyMachineTTS:
-    label: text_to_speech
-    plan: standard
-```
-
-Finally, commit your changes and push the code to your repository. This will automatically trigger the 'BUILD & DEPLOY' pipeline to push the updated version of your application to Bluemix.
+![](readme_images/change_node-red_host.png)
 
 ### The local flow
 
 You need to have NodeJS and Node-RED installed locally in order to run the candy machine's local flow. Please see http://nodejs.org/ and for http://nodered.org further instructions on how to install and configure this for your platform.
 
 The local flow is used to send a signal to the Arduino device that triggers the candy disposers to dispose some candy. To install the local flow in your environment, copy the contents of the file `resources/local_candyflow.json` to your clipboard. Ensure Node-RED is started locally and open a browser that points to your local installation of Node-RED. Normally this would be the following URL:
-
+```
     http://localhost:1880
-
+```
 Next, select the menu at the top right and select 'Import' -> 'Clipboard' to paste the local flow from the clipboard to your canvas in Node-RED.
 
 ![](readme_images/insert_localflow.png)
@@ -94,3 +62,17 @@ This should return an output similar to
 ```
 {"ok":true,"id":"_design/myDesignDoc","rev":"1-27af6e5ea017c0c99c939322a14a1def"}
 ```
+## The Watson Candy Machine dashboard
+As the event name is also an environment variable of the UI application, you can store all spoken text and sentiment per event. The Node-RED component of the candy machine makes it possible to generate a basic dashboard for the selected event. The URL for the dashboard is:
+```
+http://<your-node-red-host>/candyreport
+```
+First, select the event. Next, the dashboard is shown for the chosen event. Using web-sockets this dashboard is refreshed every minute. To enable this auto-refresh, wire the 'Trigger update' node and the 'get event' node. Click 'DEPLOY' to deploy the changes.
+
+![](readme_images/event_updates.png)
+
+An example of the dashboard is shown below.
+
+![](readme_images/dashboard.png)
+
+Have fun and **happy** coding.
