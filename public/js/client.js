@@ -80,7 +80,7 @@ function sentimentAnalysis(transcript) {
       reset('rgba(255,76,76,0.50)', true)
       $playaudio.src = "resources/negative.ogg?ts=" + new Date().getTime()
     } else {
-      reset('', true)
+      reset('f4f4f4', true)
       $playaudio.src = "resources/text.ogg?ts=" + new Date().getTime()
     }
 
@@ -97,7 +97,7 @@ function sentimentAnalysis(transcript) {
 function reset(backgroundColor, keepText) {
   state = 'ready'
   isStopped = false
-  document.body.style.background = backgroundColor || 'none'
+  document.body.style.background = backgroundColor || ''
 
   if ($recordButton != null) {
     $recordButton.disabled  = false

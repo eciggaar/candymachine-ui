@@ -24,6 +24,6 @@ applications:
   env:
     POS_TEXT: "Wow, that's positive. Thank you! Enjoy your chocolate candy."
     NEG_TEXT: "That negative message hurts. You'll have to take the sour candy."
-    GEN_TEXT: "I'm sorry. To get some candies, you need to be more explicit."
+    GEN_TEXT: "I'm sorry. To get some candy, you need to be more explicit."
     EVENTNAME: dummy
     NODE_RED_HOST: http://<your-node-red-host>

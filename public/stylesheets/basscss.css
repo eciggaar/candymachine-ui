@@ -126,7 +126,11 @@ h6{ font-size: .75rem }
 
 body{
   color: #111;
-  background-color: #fff;
+  background-color: #f4f4f4;
+  background-image: url('../images/candymachine.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 a{
@@ -256,7 +260,7 @@ hr{
 
 .btn-primary{
   color: #fff;
-  background-color: #0074d9;
+  background-color: #1eb1a5;
   border-radius: 3px;
 }
 
@@ -876,7 +880,7 @@ hr{
 
 .border-none{ border:0 }
 
-.rounded{ border-radius: 3px }
+.rounded{ border-radius: 15px }
 
 .circle{ border-radius:50% }
 
@@ -954,7 +958,7 @@ hr{
 
 .bg-orange{ background-color: #ff851b }
 
-.bg-red{ background-color: #ff4136 }
+.bg-red{ background-color: #fc635d }
 
 .bg-fuchsia{ background-color: #f012be }
 
@@ -981,4 +985,3 @@ hr{
 :root{
 
 }
-
