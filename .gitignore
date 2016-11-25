@@ -2,6 +2,4 @@ launchConfigurations/
 node_modules/
 .DS_Store
 .env
-public/resources/negative.ogg
-public/resources/positive.ogg
-public/resources/text.ogg
+public/resources/
