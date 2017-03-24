@@ -79,9 +79,12 @@ function sentimentAnalysis(transcript) {
     } else if(sentiment === 'negative') {
       reset('rgba(255,76,76,0.50)', true)
       $playaudio.src = "resources/negative.ogg?ts=" + new Date().getTime()
-    } else {
+    } else if (sentiment === 'neutral') {
       reset('f4f4f4', true)
       $playaudio.src = "resources/text.ogg?ts=" + new Date().getTime()
+    } else if (sentiment === 'more_input') {
+      reset('f4f4f4', true)
+      $playaudio.src = "resources/more_text.ogg?ts=" + new Date().getTime()
     }
 
     timeout = setTimeout(reset, 3000)

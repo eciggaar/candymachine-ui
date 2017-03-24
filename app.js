@@ -35,14 +35,15 @@ var config = extend({
     password: process.env.STT_PASSWORD
 }, vcapServices.getCredentials('speech_to_text'));
 
-var alchemy_cred = extend({
-    apikey: process.env.ALCHEMY_API_KEY
-}, vcapServices.getCredentials('alchemy_api'));
 var authService = watson.authorization(config);
 
-var alchemy_language = new watson.AlchemyLanguageV1({
-    api_key: alchemy_cred.apikey
-});
+var nlu_config = extend({
+  version_date: watson.NaturalLanguageUnderstandingV1.VERSION_DATE_2016_01_23,
+  username: process.env.NLU_USERNAME,
+  password: process.env.NLU_PASSWORD
+}, vcapServices.getCredentials('natural-language-understanding'));
+
+var naturalLanguageUnderstanding = new watson.NaturalLanguageUnderstandingV1(nlu_config);
 
 var eventname = process.env.EVENTNAME;
 
@@ -72,6 +73,11 @@ textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/nega
 params.text = unescape(process.env.GEN_TEXT);
 textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/text.ogg'));
 
+// Pipe the synthesized 'need more text' text to a file.
+params.text = unescape(process.env.MORE_TEXT);
+textToSpeech.synthesize(params).pipe(fs.createWriteStream('public/resources/more_text.ogg'));
+
+
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
@@ -91,71 +97,84 @@ app.post('/sentiment', upload.single(), function(req, res) {
     var text = req.body.transcript;
     var score;
 
-    alchemy_language.sentiment({
-        'text': text
-    }, function(err, response) {
-        var client = new Client();
-        var msgbody = {};
+    naturalLanguageUnderstanding.analyze({
+        'text': text,
+        'features': {
+          'sentiment': {},
+          'concepts': {},
+          'catagories': {}
+      }
+    }, function(err, response){
+      var client = new Client();
+      var msgbody = {};
 
-        if (err) {
-            console.log('error: ', err);
+      if (err) {
+        if (err.code == '422') {
+          console.log('Error code: ' + err.code + ': ' + err.error); // Need more text as input to determine language ID
+
+          // Send response back to client (setting sentiment value to 'error' indicating that more input is needed)
+          res.send({
+            'sentiment': 'more_input',
+            'score': 'n/a'
+          });
         } else {
-            var sentiment = response.docSentiment.type;
-
-            if (response.status == 'OK') {
-                if (sentiment == 'neutral') {
-                    score = 0;
-                } else {
-                    score = new Number(response.docSentiment.score);
-
-                    if (score != 0) {
-                        if (score > 0) {
-                            msgbody = {
-                                'text': 'p'
-                            };
-                        } else {
-                            msgbody = {
-                                'text': 'n'
-                            };
-                        }
-                    }
-
-                    // set content-type header and data as json in args parameter
-                    var args = {
-                        data: msgbody,
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    };
-
-                    client.post(process.env.NODE_RED_HOST + '/candy', args, function(data, response) {});
-                }
-
-                // set content-type header and data as json in args parameter
-                var args = {
-                    data: {
-                        'text': text,
-                        'event': eventname,
-                        'sentiment': sentiment,
-                        'score': score,
-                        "ts": Date.now()
-                    },
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                };
-
-                client.post(process.env.NODE_RED_HOST + '/candylog', args, function(data, response) {});
-            } else {
-                console.log('Error in sentiment analysis call: ' + result.statusInfo);
-            }
-
-            console.log('Result: ' + response.status + ', ' + text + '. Score: ' + score);
-            res.send({
-                'sentiment': sentiment,
-                'score': score
-            });
+          console.log(err);
+          return;
         }
+      } else {
+        var score = new Number(response.sentiment.document.score);
+        var sentiment = response.sentiment.document.label;
+
+        console.log(JSON.stringify(response));
+
+
+        if (score >= -0.5 && score <= 0.5) {
+          score = 0; // Sentiment score is not negative or positive enough, so set to 0 to reflect neutral score
+          sentiment = 'neutral';
+        } else {
+          if (score > 0) {
+            msgbody = { 'text': 'p' };
+          } else {
+            msgbody = { 'text': 'n' };
+          }
+
+          // set content-type header and data as json in args parameter
+          var args = {
+            data: msgbody,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
+
+          client.post(process.env.NODE_RED_HOST + '/candy', args, function(data, response) {});
+        }
+
+        // set content-type header and data as json in args parameter
+        var args = {
+          data: {
+            'text': text,
+            'event': eventname,
+            'sentiment': sentiment,
+            'score': score,
+            'ts': Date.now()
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        console.log('NODE_RED_HOST: ' + process.env.NODE_RED_HOST);
+
+        client.post(process.env.NODE_RED_HOST + '/candylog', args, function(data, response) {});
+
+        console.log('Result: ' + text + '. Score: ' + score);
+        console.log('Watson Natural Language Understanding result:\n--------\n' + JSON.stringify(response, null, 2), '\n--------');
+
+        res.send({
+            'sentiment': sentiment,
+            'score': score
+        });
+      }
     });
 });
 
