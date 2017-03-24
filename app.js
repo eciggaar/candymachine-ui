@@ -102,7 +102,7 @@ app.post('/sentiment', upload.single(), function(req, res) {
         'features': {
           'sentiment': {},
           'concepts': {},
-          'catagories': {}
+          'categories': {}
       }
     }, function(err, response){
       var client = new Client();
